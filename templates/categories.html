@@ -1,0 +1,63 @@
+{% extends "master.html" %}
+{% block content %}
+{% include "header.html" %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<script>
+    var messages = {
+        {
+            messages | safe
+        }
+    };
+    for (var i = 0; i < messages.length; i++) {
+        alert(messages[i]);
+    }
+</script>
+{% endif %}
+{% endwith %}
+<div class="container">
+  <h1>Categories</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Category</th>
+        <th scope="col">JSON</th>
+        <th scope="col">Description</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for category in categories %}
+      <tr>
+        <th scope="row">{{category.id}}</th>
+        <td>
+          <a href="{{url_for('showCategories')}}{{category.id}}">{{category.name}}</a>
+        </td>
+        <td>
+          <a href="{{url_for('showCategories')}}{{category.id}}/items/JSON/" target="_blank"><button type="button" class="btn btn-success">JSON</button></a>
+        </td>
+        <td>
+          {{category.description}}
+        </td>
+        <td>
+          <button onclick="location.href = '{{url_for('editCategory',category_id = category.id)}}'" class="btn btn-warning">
+              Edit <span class="glyphicon glyphicon-pencil"></span>
+          </button>
+        </td>
+        <td>
+          <button onclick="location.href = '{{url_for('deleteCategory',category_id = category.id)}}'" class="btn btn-danger">
+              Delete <span class="glyphicon glyphicon-trash"></span>
+          </button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <button onclick="location.href = '{{url_for('newCategory')}}'" class="btn btn-info">
+      Add a New Category <span class="glyphicon glyphicon-plus"></span>
+  </button>
+  <a href="{{url_for('showCategories')}}JSON" target="_blank"><button type="button" class="btn btn-success">Category JSON</button></a>
+</div>
+{% endblock %}

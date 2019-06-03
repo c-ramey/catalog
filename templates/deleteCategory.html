@@ -1,0 +1,17 @@
+{% extends "master.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class="container">
+  <h1>Delete Category:  {{category.name}}</h1>
+  <form action="#" method='post'>
+      <input type="submit" value="Delete" class="btn btn-danger">
+  </form>
+  <br /><br />
+  <button type="reset" onclick="goBack()" class="btn btn-success">Cancel</button>
+  <script>
+      function goBack() {
+          window.history.back();
+      }
+  </script>
+</div>
+{% endblock %}

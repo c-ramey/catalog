@@ -1,0 +1,68 @@
+{% extends "master.html" %}
+{% block content %}
+{% include "header.html" %}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<script>
+    var messages = {
+        {
+            messages | safe
+        }
+    };
+    for (var i = 0; i < messages.length; i++) {
+        alert(messages[i]);
+    }
+</script>
+{% endif %}
+{% endwith %}
+<div class="container">
+  <h1>{{ category.name }}</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Item</th>
+        <th scope="col">Description</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <th scope="row">{{item.id}}</th>
+        <td>
+          {{item.name}}
+        </td>
+        <td>
+          {{item.description}}
+        </td>
+        <td>
+          <button onclick="location.href = '{{url_for('editItem',category_id = category.id, item_id = item.id )}}'" class="btn btn-warning">
+              Edit <span class="glyphicon glyphicon-pencil"></span>
+          </button>
+        </td>
+        <td>
+          <button onclick="location.href = '{{url_for('deleteItem',category_id = category.id, item_id = item.id )}}'" class="btn btn-danger">
+              Delete <span class="glyphicon glyphicon-trash"></span>
+          </button>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <button onclick="location.href = '{{url_for('newCategory')}}'" class="btn btn-info">
+      Add a New Category <span class="glyphicon glyphicon-plus"></span>
+  </button>
+  <button onclick="location.href = '{{url_for('newItem', category_id=category.id)}}'" class="btn btn-info">
+      Add a New Item <span class="glyphicon glyphicon-plus"></span>
+  </button>
+  <br /><br />
+  <button type="reset" onclick="goBack()" class="btn btn-success">Go Back</button>
+  <script>
+      function goBack() {
+          window.history.back();
+      }
+  </script>
+</div>
+{% endblock %}

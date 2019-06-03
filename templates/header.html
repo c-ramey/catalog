@@ -1,0 +1,18 @@
+<header>
+	<nav class="navbar navbar-default" style="background-color:#333;">
+		<div class="container" style="background-color:#333;">
+			<div class="pull-left">
+				<a class="navbar-brand" href="{{url_for('showCategories')}}" style="color:#FFF">
+					Category Demo App
+				</a>
+			</div>
+			<div class="pull-right">
+				{% if 'username' not in session %}
+				<a href="{{url_for('showLogin')}}"><button type="button" class="btn btn-success" style="margin-top:8px;">Login</button></a>
+				{% else %}
+				<a href="{{url_for('showLogout')}}"><button type="button" class="btn btn-success" style="margin-top:8px;">Logout</button></a>
+				{% endif %}
+			</div>
+		</div>
+	</nav>
+</header>
